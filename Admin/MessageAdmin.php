@@ -78,6 +78,7 @@ class MessageAdmin extends Admin
         $listMapper
             ->add('shortContent')
             ->add('createdAt')
+            ->add('source')
             ->add('_action', 'actions', array('actions' => array('show' => array())));
     }
 
@@ -89,6 +90,7 @@ class MessageAdmin extends Admin
         $filter
             ->add('contact')
             ->add('content')
+            ->add('source')
             ->add('createdAt');
     }
 }

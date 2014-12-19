@@ -7,6 +7,7 @@
     <mapped-superclass name="Presta\CMSContactBundle\Model\Message">
 
         <field name="content" column="content" type="text" />
+        <field name="source" column="source" type="string" />
         <field name="createdAt" column="created_at" type="datetime" />
 
     </mapped-superclass>

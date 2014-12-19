@@ -42,6 +42,26 @@
                 <source>form.label.submit</source>
                 <target>Send</target>
             </trans-unit>
+            <trans-unit id="form.label.title">
+                <source>form.label.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="form.label.intro">
+                <source>form.label.intro</source>
+                <target>Intro</target>
+            </trans-unit>
+            <trans-unit id="form.label.source">
+                <source>form.label.source</source>
+                <target>Source name</target>
+            </trans-unit>
+            <trans-unit id="form.label.email_from">
+                <source>form.label.email_from</source>
+                <target>Send e-mail from</target>
+            </trans-unit>
+            <trans-unit id="form.label.email_to">
+                <source>form.label.email_to</source>
+                <target>Send e-mail to</target>
+            </trans-unit>
             <trans-unit id="block.default.title">
                 <source>block.default.title</source>
                 <target>Contact us</target>

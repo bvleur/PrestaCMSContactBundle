@@ -3,7 +3,7 @@
 {% trans_default_domain "PrestaCMSContactBundle" %}
 
 {% block block %}
-    <form action="{{ path('presta_cms_contact_submit') }}" method="post" {{ form_enctype(form) }} id="contact_form">
+    <form action="{{ path('presta_cms_contact_submit', {block_id: block.id}) }}" method="post" {{ form_enctype(form) }} id="contact_form">
         <h2>{{ settings.title|raw }}</h2>
 
         <p>{{ settings.intro|raw }}</p>

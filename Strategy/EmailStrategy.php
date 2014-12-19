@@ -86,12 +86,15 @@ class EmailStrategy implements StrategyInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(Message $message)
+    public function handle(Message $message, $options)
     {
+        $emailFrom = array_key_exists('email_from', $options) ? $options['email_from'] : $this->emailFrom;
+        $emailTo = array_key_exists('email_to', $options) ? $options['email_to'] : $this->emailTo;
+
         $mail = \Swift_Message::newInstance()
             ->setSubject($this->translator->trans('email.subject', array(), 'PrestaCMSContactBundle'))
-            ->setFrom($this->emailFrom)
-            ->setTo($this->emailTo)
+            ->setFrom($emailFrom)
+            ->setTo($emailTo)
             ->setBody(
                 $this->templateEngine->render(
                     'PrestaCMSContactBundle:Default:contact-email.txt.twig',

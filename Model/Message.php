@@ -27,6 +27,11 @@ class Message
     protected $content;
 
     /**
+     * @var string
+     */
+    protected $source;
+
+    /**
      * @var \DateTime
      */
     protected $createdAt;
@@ -66,6 +71,22 @@ class Message
     public function getContact()
     {
         return $this->contact;
+    }
+
+    /**
+     * @param string $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 
     /**

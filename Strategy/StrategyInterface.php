@@ -20,6 +20,7 @@ interface StrategyInterface
      * Handle message submission
      *
      * @param  Message $message
+     * @param  array $options Options array with possible keys: "source", "email_from", "email_to".
      */
-    public function handle(Message $message);
+    public function handle(Message $message, $options);
 }

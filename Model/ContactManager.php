@@ -114,11 +114,12 @@ abstract class ContactManager
      * @param  string  $content
      * @return Message
      */
-    public function createMessageForContact(Contact $contact, $content)
+    public function createMessageForContact(Contact $contact, $content, $source)
     {
         $message = $this->getNewMessageInstance();
         $message->setContact($contact);
         $message->setContent($content);
+        $message->setSource($source);
         $this->create($message);
 
         return $message;
@@ -127,7 +128,7 @@ abstract class ContactManager
     /**
      * @param Form $form
      */
-    public function handle(Form $form)
+    public function handle(Form $form, $options)
     {
         $data    = $form->getData();
         $contact = $this->getContactForEmail($data['email']);
@@ -137,9 +138,10 @@ abstract class ContactManager
             $this->update($contact);
         }
 
-        $message = $this->createMessageForContact($contact, $data['message']);
+        $source = array_key_exists('source', $options) ? $options['source'] : '';
+        $message = $this->createMessageForContact($contact, $data['message'], $source);
         $this->flush();
 
-        return $this->strategy->handle($message);
+        return $this->strategy->handle($message, $options);
     }
 }

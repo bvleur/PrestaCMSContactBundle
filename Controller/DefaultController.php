@@ -37,7 +37,13 @@ class DefaultController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $this->container->get('presta_cms_contact.manager.contact')->handle($form);
+            $settings = $this->getSettingsByBlockId($request->get('block_id'));
+
+            /* Extract contact handling options from block settings */
+            $options = array_intersect_key($settings, array_flip(['source', 'email_from', 'email_to']));
+
+            /* Handle contact form */
+            $this->container->get('presta_cms_contact.manager.contact')->handle($form, $options);
 
             $this->get('session')->getFlashBag()->add('flash_success', 'form.message.success');
         } else {
@@ -45,5 +51,24 @@ class DefaultController extends Controller
         }
 
         return $this->render('PrestaCMSContactBundle:Default:submit.html.twig', array('form' => $form->createView()));
+    }
+
+    private function getSettingsByBlockId($id)
+    {
+        /* Retrieve the block */
+        $dm = $this->get('sonata.admin.manager.doctrine_phpcr')->getDocumentManager();
+        $block = $dm->find(null, $id);
+
+        /* Construct a block context */
+        $blockContextManager = $this->get('sonata.block.context_manager');
+        $blockContext = $blockContextManager->get($block);
+
+        /* Construct a block service */
+        $blockServiceManager = $this->get('sonata.block.manager');
+        $service = $blockServiceManager->get($block);
+        $service->load($block);
+
+        /* Retrieve settings of this block */
+        return $service->getSettings($blockContext);
     }
 }
