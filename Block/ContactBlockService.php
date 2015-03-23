@@ -61,7 +61,10 @@ class ContactBlockService extends BaseBlockService
     {
         return array(
             'title' => $this->trans('block.default.title'),
-            'intro' => $this->trans('block.default.intro')
+            'intro' => $this->trans('block.default.intro'),
+            'source' => null,
+            'email_from' => null,
+            'email_to' => null
         );
     }
 
