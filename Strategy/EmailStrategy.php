@@ -95,6 +95,7 @@ class EmailStrategy implements StrategyInterface
             ->setSubject($this->translator->trans('email.subject', array(), 'PrestaCMSContactBundle'))
             ->setFrom($emailFrom)
             ->setTo($emailTo)
+            ->setReplyTo($message->getContact()->getEmail())
             ->setBody(
                 $this->templateEngine->render(
                     'PrestaCMSContactBundle:Default:contact-email.txt.twig',
