@@ -88,7 +88,7 @@ class ContactBlockService extends BaseBlockService
         return array(
             array('title', 'text', array('required' => false, 'label' => $this->trans('form.label.title'))),
             array('intro', 'textarea', array('required' => false, 'label' => $this->trans('form.label.intro'))),
-            array('source', 'email', array('required' => false, 'label' => $this->trans('form.label.source'))),
+            array('source', 'text', array('required' => false, 'label' => $this->trans('form.label.source'))),
             array('email_from', 'email', array('required' => false, 'label' => $this->trans('form.label.email_from'))),
             array('email_to', 'email', array('required' => false, 'label' => $this->trans('form.label.email_to')))
         );
