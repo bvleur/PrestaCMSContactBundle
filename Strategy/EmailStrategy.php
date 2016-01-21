@@ -41,6 +41,11 @@ class EmailStrategy implements StrategyInterface
     /**
      * @var string
      */
+    protected $emailFromNameTemplate;
+
+    /**
+     * @var string
+     */
     protected $emailTo;
 
     /**
@@ -70,9 +75,10 @@ class EmailStrategy implements StrategyInterface
     /**
      * @param string $emailFrom
      */
-    public function setEmailFrom($emailFrom)
+    public function setEmailFrom($emailFrom, $emailFromNameTemplate = null)
     {
         $this->emailFrom = $emailFrom;
+        $this->emailFromNameTemplate = $emailFromNameTemplate;
     }
 
     /**
@@ -91,6 +97,15 @@ class EmailStrategy implements StrategyInterface
         $emailFrom = array_key_exists('email_from', $options) ? $options['email_from'] : $this->emailFrom;
         $emailTo = array_key_exists('email_to', $options) ? $options['email_to'] : $this->emailTo;
 
+        if (null !== $this->emailFromNameTemplate) {
+            $emailFromName = strtr($this->emailFromNameTemplate, [
+                '%contact_name%' => $message->getContact()->getName(),
+                '%source%' => $message->getSource()
+            ]);
+
+            $emailFrom = [$emailFrom => $emailFromName];
+        }
+
         $mail = \Swift_Message::newInstance()
             ->setSubject($this->translator->trans('email.subject', array(), 'PrestaCMSContactBundle'))
             ->setFrom($emailFrom)
@@ -102,6 +117,7 @@ class EmailStrategy implements StrategyInterface
                     array('message' => $message)
                 )
             );
+
 
         $this->mailer->send($mail);
     }
